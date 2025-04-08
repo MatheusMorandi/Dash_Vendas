@@ -1,28 +1,38 @@
-import pandas as pd 
-
-import numpy as np
-
 import streamlit as st
 
 from streamlit_option_menu import option_menu
 
-import plotly.express as px
+from paginas.sobre import sobre
 
+from paginas.dashboard import dashboard
 
-base = pd.read_csv("./data/shopping_trends_updated.csv")
+from paginas.contato import contato
 
-base = base.drop(columns = "Frequency of Purchases")
-
-# Configuração da página
 st.set_page_config(
     page_title="Dash de Vendas", 
     layout="wide",
     page_icon="🛒"
 )
 
-# CSS personalizado
 st.markdown("""
     <style>
+        /* Reduz tamanho dos títulos */
+        h1 {
+            font-size: 32px !important;
+            padding-bottom: 0.5rem !important;
+            margin: 0.5rem 0 !important;
+        }
+        
+        /* Ajusta subtítulos */
+        h2 {
+            font-size: 24px !important;
+            margin: 0.3rem 0 !important;
+        }
+        
+        /* Texto normal */
+        p, li {
+            font-size: 16px !important;
+        }
         /* Centraliza o título h1 */
         [data-testid="stSidebar"] h1 {
             text-align: center;
@@ -49,7 +59,7 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# Sidebar
+
 st.sidebar.image("./img/logo_dash.png")
 
 with st.sidebar:
@@ -69,3 +79,15 @@ with st.sidebar:
             "menu-icon": {"display": "none"}  
         }
     )
+
+if selected == "Sobre":
+
+    sobre()
+
+elif selected == "Dashboard":
+
+    dashboard()
+
+elif selected == "Contato":
+
+    contato()
