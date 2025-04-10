@@ -26,6 +26,8 @@
 
 import pandas as pd 
 
+import plotly.express as px
+
 import numpy as np
 
 # %% 
@@ -44,3 +46,30 @@ base = base.drop(columns = "Frequency of Purchases")
 
 base.head()
 # %%
+
+itens_qntd =  base["Item Purchased"].agg("sum")
+
+itens_qntd
+
+# %%
+
+itens_valor = base.groupby("Item Purchased")["Purchase Amount (USD)"].sum().sort_values(ascending = False)
+
+itens_valor
+
+# %%
+
+cat = base.groupby("Category")["Purchase Amount (USD)"].sum().sort_values(ascending = False)
+
+cat
+
+# %%
+
+idades = base.groupby(["Customer ID", "Age"])["Item Purchased"]
+
+
+idades
+
+# %%
+
+base.head()

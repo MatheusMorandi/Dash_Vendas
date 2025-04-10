@@ -126,6 +126,30 @@ def sobre():
                 </a>
             </div>
         """, unsafe_allow_html=True)
+    
+    with st.container():
+
+        st.subheader("📚 Dicionário dos Dados ")
+
+        st.markdown("""
+            <div class="methodology-step">🆔 Customer ID - Identificador único para cada cliente.</div>
+            <div class="methodology-step">🎂 Age - Idade do cliente.</div>
+            <div class="methodology-step">🚻 Gender - Gênero do cliente (Masculino/Feminino).</div>
+            <div class="methodology-step">🛒 Item Purchased - Item comprado pelo cliente.</div>
+            <div class="methodology-step">📦 Category - Categoria do item comprado.</div>
+            <div class="methodology-step">💵 Purchase Amount (USD) - Valor da compra em dólares.</div>
+            <div class="methodology-step">📍 Location - Local onde a compra foi realizada.</div>
+            <div class="methodology-step">📏 Size - Tamanho do item comprado.</div>
+            <div class="methodology-step">🎨 Color - Cor do item comprado.</div>
+            <div class="methodology-step">🌞 Season - Estação do ano da compra.</div>
+            <div class="methodology-step">⭐ Review Rating - Avaliação do cliente.</div>
+            <div class="methodology-step">🔔 Subscription Status - Assinatura (Sim/Não).</div>
+            <div class="methodology-step">🚚 Shipping Type - Tipo de envio escolhido.</div>
+            <div class="methodology-step">💲 Discount Applied - Desconto aplicado (Sim/Não).</div>
+            <div class="methodology-step">🎟️ Promo Code Used - Código promocional utilizado.</div>
+            <div class="methodology-step">🛍️ Previous Purchases - Número de compras anteriores.</div>
+            <div class="methodology-step">💳 Payment Method - Método de pagamento preferencial.</div>                            
+            """, unsafe_allow_html=True)
 
     
     st.divider()
