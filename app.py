@@ -8,6 +8,8 @@ from paginas.dashboard import dashboard
 
 from paginas.contato import contato
 
+
+
 st.set_page_config(
     page_title="Dash de Vendas", 
     layout="wide",

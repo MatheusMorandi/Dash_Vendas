@@ -1,7 +1,5 @@
 # %%
 
-# Link do dataset https://www.kaggle.com/datasets/iamsouravbanerjee/customer-shopping-trends-dataset
-
 # Dicionario dos dados
 # 📌 Customer ID - Identificador único para cada cliente.
 # 📌 Age - Idade do cliente.
@@ -32,7 +30,7 @@ import numpy as np
 
 # %% 
 
-base = pd.read_csv("../data/shopping_trends_updated.csv")
+base = pd.read_csv("./data/shopping_trends_updated.csv")
 
 base.head()
 
@@ -42,34 +40,32 @@ base.info()
 
 # %%
 
-base = base.drop(columns = "Frequency of Purchases")
+clt_total = base["Customer ID"].unique().__len__()
 
-base.head()
-# %%
-
-itens_qntd =  base["Item Purchased"].agg("sum")
-
-itens_qntd
+clt_total
 
 # %%
 
-itens_valor = base.groupby("Item Purchased")["Purchase Amount (USD)"].sum().sort_values(ascending = False)
-
-itens_valor
+base["Purchase Amount (USD)"] = base["Purchase Amount (USD)"].astype(float)
 
 # %%
 
-cat = base.groupby("Category")["Purchase Amount (USD)"].sum().sort_values(ascending = False)
+vnd_totais = round((base["Purchase Amount (USD)"].sum()), 2)
 
-cat
+vnd_formatado = f"{vnd_totais:,.2f}"
 
-# %%
-
-idades = base.groupby(["Customer ID", "Age"])["Item Purchased"]
-
-
-idades
+vnd_formatado
 
 # %%
 
-base.head()
+tck_medio = round((vnd_totais/clt_total), 2)
+
+tck_medio
+
+# %%
+
+avl_media = round(((base["Review Rating"].sum())/clt_total), 2)
+
+avl_media
+
+# %%
