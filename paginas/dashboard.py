@@ -6,6 +6,8 @@ import pandas as pd
 
 import numpy as np
 
+from utils import gerar_chave
+
 import src.eda as eda
 
 base = pd.read_csv("./data/shopping_trends_updated.csv")
@@ -68,3 +70,15 @@ def dashboard():
     with col4:
 
         st.metric("Avaliação média de reviews", eda.avl_media)
+
+    st.plotly_chart(eda.grafico_idade(base_filtrada), key = gerar_chave(base, "grafico_idade"))
+
+    col5, col6 = st.columns(2)
+
+    with col5:
+
+        st.plotly_chart(eda.grafico_generos(base_filtrada), key = gerar_chave(base, "grafico_generos"), use_container_width = True)
+
+    with col6:
+
+        st.plotly_chart(eda.grafico_media_genero(base_filtrada),key = gerar_chave(base, "grafico_media_genero"), use_container_width = True)
