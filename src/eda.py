@@ -36,7 +36,7 @@ base.head()
 
 # %%
 
-clt_total = base["Customer ID"].unique().__len__()
+clt_total = len(base["Customer ID"].unique())
 
 clt_total
 
@@ -68,7 +68,10 @@ avl_media
 
 def grafico_idade (dados):
 
-    grfc_idade = px.histogram(dados, dados["Age"], color = dados["Gender"], color_discrete_map = {"Male": "#2E91E5", "Female": "#E15F99"})
+    grfc_idade = px.histogram(dados, 
+                              dados["Age"], 
+                              color = dados["Gender"], 
+                              color_discrete_map = {"Male": "#2E91E5", "Female": "#E15F99"})
 
     grfc_idade.update_layout(
         title = "Distribuição de Idade",
@@ -87,7 +90,12 @@ def grafico_generos (dados):
 
     generos = pd.Series(dados["Gender"].value_counts())
 
-    grfc_gen = px.pie(data_frame = generos, names = generos.index, values = generos.values, color = generos.index, title = "Distribuição dos Gêneros", color_discrete_map = {"Male": "#2E91E5", "Female": "#E15F99"})
+    grfc_gen = px.pie(data_frame = generos, 
+                      names = generos.index, 
+                      values = generos.values, 
+                      color = generos.index, 
+                      title = "Distribuição dos Gêneros", 
+                      color_discrete_map = {"Male": "#2E91E5", "Female": "#E15F99"})
 
     return grfc_gen
 
@@ -99,7 +107,11 @@ def grafico_media_genero(dados):
 
     media_genero = dados.groupby("Gender", as_index = False)["Purchase Amount (USD)"].mean().round(2)
 
-    grfc_gen_media = px.bar(data_frame = media_genero, x = media_genero["Gender"], y = media_genero["Purchase Amount (USD)"], color = media_genero["Gender"], color_discrete_map = {"Male": "#2E91E5", "Female": "#E15F99"})
+    grfc_gen_media = px.bar(data_frame = media_genero, 
+                            x = media_genero["Gender"], 
+                            y = media_genero["Purchase Amount (USD)"], 
+                            color = media_genero["Gender"], 
+                            color_discrete_map = {"Male": "#2E91E5", "Female": "#E15F99"})
 
     grfc_gen_media.update_layout(
         title = "Média de Gasto por Gênero (USD)",
@@ -119,3 +131,31 @@ def grafico_media_genero(dados):
     return grfc_gen_media
 
 # %%
+
+def grafico_top_estado(dados):
+
+    top_estado = dados.groupby("Location", as_index = False)["Purchase Amount (USD)"].sum().sort_values(by = "Purchase Amount (USD)", ascending = False).head(10)
+
+    grfc_top_estado = px.bar(top_estado, 
+                            x = top_estado["Purchase Amount (USD)"], 
+                            y = top_estado["Location"], 
+                            color = top_estado["Location"],
+                            color_discrete_sequence = ["#2E91E5", "#E15F99", "#1CA71C", "#FB0D0D", "#FFB400", "#9C19E0", "#A29BFE", "#7ED6DF",  "#17C3B2", "#C492B1"])
+
+    grfc_top_estado.update_layout(
+        title = "Top 10 Estados por Volume de Vendas (USD)",
+        template = "plotly",
+        margin = dict(l = 50, r = 50, b = 50, t = 50),
+        xaxis_title = "",
+        yaxis_title = "",
+        showlegend = False
+    )
+
+    return grfc_top_estado
+
+# %%
+
+
+
+# %%
+

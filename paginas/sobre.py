@@ -70,8 +70,6 @@ def sobre():
         """, unsafe_allow_html=True)
 
     with st.container():
-
-        st.subheader("🔍 Metodologia")
         
         col1, col2 = st.columns([1, 2], gap="medium")
         
@@ -138,7 +136,7 @@ def sobre():
             <div class="methodology-step">🛒 Item Purchased - Item comprado pelo cliente.</div>
             <div class="methodology-step">📦 Category - Categoria do item comprado.</div>
             <div class="methodology-step">💵 Purchase Amount (USD) - Valor da compra em dólares.</div>
-            <div class="methodology-step">📍 Location - Local onde a compra foi realizada.</div>
+            <div class="methodology-step">📍 Location - Estado onde a compra foi realizada.</div>
             <div class="methodology-step">📏 Size - Tamanho do item comprado.</div>
             <div class="methodology-step">🎨 Color - Cor do item comprado.</div>
             <div class="methodology-step">🌞 Season - Estação do ano da compra.</div>
