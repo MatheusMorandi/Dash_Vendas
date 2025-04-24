@@ -30,7 +30,7 @@ import numpy as np
 
 # %% 
 
-base = pd.read_csv("./data/shopping_trends_updated.csv")
+base = pd.read_csv("../data/shopping_trends_updated.csv")
 
 base.head()
 
@@ -66,7 +66,7 @@ avl_media
 
 # %%
 
-def grafico_idade (dados):
+def grafico_idade(dados):
 
     grfc_idade = px.histogram(dados, 
                               dados["Age"], 
@@ -77,7 +77,7 @@ def grafico_idade (dados):
         title = "Distribuição de Idade",
         template = "plotly",
         margin = dict(l = 50, r = 50, b = 50, t = 50),
-        xaxis_title = "Idade",
+        xaxis_title = "",
         yaxis_title = "Quantidade de Clientes"
     )
 
@@ -86,7 +86,7 @@ def grafico_idade (dados):
 
 # %%
 
-def grafico_generos (dados):
+def grafico_generos(dados):
 
     generos = pd.Series(dados["Gender"].value_counts())
 
@@ -117,8 +117,8 @@ def grafico_media_genero(dados):
         title = "Média de Gasto por Gênero (USD)",
         template = "plotly",
         margin = dict(l = 50, r = 50, b = 50, t = 50),
-        xaxis_title = "Gênero",
-        yaxis_title = "Média de Gasto",
+        xaxis_title = "",
+        yaxis_title = "",
         showlegend = False
     )
 
@@ -140,7 +140,7 @@ def grafico_top_estado(dados):
                             x = top_estado["Purchase Amount (USD)"], 
                             y = top_estado["Location"], 
                             color = top_estado["Location"],
-                            color_discrete_sequence = ["#2E91E5", "#E15F99", "#1CA71C", "#FB0D0D", "#FFB400", "#9C19E0", "#A29BFE", "#7ED6DF",  "#17C3B2", "#C492B1"])
+                            color_discrete_sequence = px.colors.qualitative.Pastel)
 
     grfc_top_estado.update_layout(
         title = "Top 10 Estados por Volume de Vendas (USD)",
@@ -148,14 +148,91 @@ def grafico_top_estado(dados):
         margin = dict(l = 50, r = 50, b = 50, t = 50),
         xaxis_title = "",
         yaxis_title = "",
-        showlegend = False
-    )
+        showlegend = False)
 
     return grfc_top_estado
 
 # %%
 
+def grafico_categorias(dados):
 
+    grfc_categorias = px.sunburst(
+        data_frame = dados,
+        path = ["Category", "Item Purchased"],
+        values = "Purchase Amount (USD)",
+        color = "Category",
+        color_discrete_sequence = px.colors.qualitative.Pastel)
+
+    grfc_categorias.update_layout(
+            title = "Performance dos Produtos por Categoria, Item",
+            template = "plotly",
+            margin = dict(l = 50, r = 50, b = 50, t = 50))
+
+
+    return grfc_categorias
 
 # %%
 
+def grafico_estacoes(dados):
+
+    estacoes = dados.groupby(["Category", "Season"])["Purchase Amount (USD)"].sum().reset_index()
+
+    grfc_estacao = px.imshow(
+        estacoes.pivot(index = "Category", columns = "Season", values = "Purchase Amount (USD)"),
+        labels = dict(x = "", y = "", color = "Valor Total (USD)"),
+        title = "Valor Total de Compras por Categoria e Estação",
+        color_continuous_scale = "Sunsetdark",
+        text_auto = True)
+
+    grfc_estacao.update_layout(
+        xaxis = dict(side = "top"))
+
+    return grfc_estacao
+
+# %%
+
+def grafico_itens(dados):
+
+    itens = dados.groupby("Item Purchased", as_index = False)["Purchase Amount (USD)"].sum().sort_values(by = "Purchase Amount (USD)",ascending = False).head(10)
+
+    grfc_itens = px.bar(
+        itens,
+        x = "Purchase Amount (USD)",
+        y = "Item Purchased",
+        color = "Item Purchased",
+        color_discrete_sequence = px.colors.qualitative.Pastel)
+
+    grfc_itens.update_layout(
+        title = "Top 10 Itens por Volume de Vendas (USD)",
+        template = "plotly",
+        margin = dict(l = 50, r = 50, b = 50, t = 50),
+        xaxis_title = "",
+        yaxis_title = "",
+        showlegend = False)
+
+    return grfc_itens
+
+# %%
+
+def grafico_pagamentos(dados):
+
+    pagamentos = dados["Payment Method"].value_counts().reset_index()
+
+    pagamentos.columns = ["Método", "Contagem"]
+
+    grfc_pagamento = px.pie(
+        pagamentos,
+        names = "Método",
+        values = "Contagem",
+        hole = 0.45,
+        title = "Distribuição de Métodos de Pagamento",
+        color = "Método",
+        color_discrete_sequence = px.colors.qualitative.Pastel)
+
+    grfc_pagamento.update_traces(
+        textinfo = "percent+label",
+        hovertemplate = "<b>%{label}</b><br>Frequência: %{value}<br>Percentual: %{percent}")
+
+    return grfc_pagamento
+
+# %%
