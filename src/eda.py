@@ -309,5 +309,3 @@ def grafico_desconto(dados):
         hovermode = "x unified")
 
     return grfc_desconto
-
-# %%

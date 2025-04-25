@@ -53,13 +53,13 @@ Contém informações sobre:
 
 ## 🖼️ Screenshots do Dashboard
 
-![Streamlit](./img/dash_1.PNG)
+![dash_1](./img/dash_1.PNG)
 
-![Streamlit](./img/dash_2.PNG)
+![dash_2](./img/dash_2.PNG)
 
-![Streamlit](./img/dash_3.PNG)
+![dash_3](./img/dash_3.PNG)
 
-![Streamlit](./img/dash_4.PNG)
+![dash_4](./img/dash_4.PNG)
 
 ## 📢 Conecte-se Comigo!
 🔗 **GitHub**: [Matheus Morandi](https://github.com/MatheusMorandi)  

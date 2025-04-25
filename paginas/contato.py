@@ -108,8 +108,7 @@ def contato():
         }
         </style>
         """
-
-        
+     
     footer_html = """
         <div class="footer-container">
             <div class="footer">
@@ -117,7 +116,6 @@ def contato():
             </div>
         </div>
         """
-
     
     st.markdown(footer_css, unsafe_allow_html=True)
 

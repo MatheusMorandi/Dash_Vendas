@@ -102,8 +102,7 @@ def dashboard():
             padding: 20px;
             background-color: transparent;
         }
-
-        
+  
         .footer {
             text-align: center;
             color: rgba(128, 128, 128, 0.5);
@@ -111,14 +110,12 @@ def dashboard():
             border-top: 1px solid rgba(128, 128, 128, 0.2);
             padding-top: 15px;
         }
-
-        
+     
         .spacer {
             height: 50px;
         }
         </style>
         """
-
         
     footer_html = """
         <div class="footer-container">
@@ -127,7 +124,6 @@ def dashboard():
             </div>
         </div>
         """
-
     
     st.markdown(footer_css, unsafe_allow_html=True)
 

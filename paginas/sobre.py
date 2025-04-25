@@ -148,8 +148,7 @@ def sobre():
             <div class="methodology-step">🛍️ Previous Purchases - Número de compras anteriores.</div>
             <div class="methodology-step">💳 Payment Method - Método de pagamento preferencial.</div>                            
             """, unsafe_allow_html=True)
-
-    
+ 
     footer_css = """
         <style>
         .footer-container {
@@ -182,7 +181,6 @@ def sobre():
         </div>
         """
 
-    
     st.markdown(footer_css, unsafe_allow_html=True)
 
     st.markdown(footer_html, unsafe_allow_html=True)
