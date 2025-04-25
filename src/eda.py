@@ -30,7 +30,7 @@ import numpy as np
 
 # %% 
 
-base = pd.read_csv("../data/shopping_trends_updated.csv")
+base = pd.read_csv("./data/shopping_trends_updated.csv")
 
 base.head()
 
@@ -50,8 +50,6 @@ vnd_totais = round((base["Purchase Amount (USD)"].sum()), 2)
 
 vnd_formatado = f"{vnd_totais:,.2f}"
 
-vnd_formatado
-
 # %%
 
 tck_medio = round((vnd_totais/clt_total), 2)
@@ -63,6 +61,14 @@ tck_medio
 avl_media = round(((base["Review Rating"].sum())/clt_total), 2)
 
 avl_media
+
+# %%
+
+tx_assinatura = base["Subscription Status"].value_counts(normalize = True)
+
+tx_assinatura = tx_assinatura.iloc[1] * 100
+
+tx_assinatura = f"{tx_assinatura}%"
 
 # %%
 
@@ -231,8 +237,77 @@ def grafico_pagamentos(dados):
 
     grfc_pagamento.update_traces(
         textinfo = "percent+label",
-        hovertemplate = "<b>%{label}</b><br>Frequência: %{value}<br>Percentual: %{percent}")
+        hovertemplate = "<b>%{label}</b><br>Quantidade de Compras: %{value}<br>Percentual: %{percent}")
 
     return grfc_pagamento
+
+# %%
+
+def grafico_media_pag(dados):
+
+    media_pag = round((dados.groupby("Payment Method", as_index = False)["Purchase Amount (USD)"].mean().sort_values(by = "Purchase Amount (USD)", ascending = False)), 2)
+
+    grfc_media_pag = px.bar(
+        media_pag,
+        x = "Purchase Amount (USD)",
+        y = "Payment Method",
+        color = "Payment Method",
+        color_discrete_sequence = px.colors.qualitative.Pastel)
+
+    grfc_media_pag.update_layout(
+        title = "Valor Médio Gasto por Método de Pagamento",
+        template = "plotly",
+        margin = dict(l = 50, r = 50, b = 50, t = 50),
+        xaxis_title = "",
+        yaxis_title = "",
+        showlegend = False)
+
+    return grfc_media_pag
+
+# %%
+
+def grafico_fretes(dados):
+
+    fretes = dados.groupby("Shipping Type", as_index = False)["Purchase Amount (USD)"].sum()
+
+    grfc_fretes = px.pie(
+        fretes,
+        names = "Shipping Type",
+        values = "Purchase Amount (USD)",
+        color = "Shipping Type",
+        hole = 0.45,
+        title = "Proporção de tipos de frete utilizados",
+        color_discrete_sequence = px.colors.qualitative.Pastel)
+
+    grfc_fretes.update_traces(
+        textinfo = "percent",
+        hovertemplate = "<b>%{label}</b><br>Quantidade de Compras: %{value}<br>Percentual: %{percent}")
+
+
+    return grfc_fretes
+
+# %%
+
+def grafico_desconto(dados):
+
+    desconto = dados.groupby(["Category", "Discount Applied"], as_index = False)["Purchase Amount (USD)"].sum()
+
+    grfc_desconto = px.bar(
+        desconto,
+        x = "Category",                   
+        y = "Purchase Amount (USD)",     
+        color = "Discount Applied",        
+        barmode = "group",               
+        title = "Vendas com vs. sem Desconto por Categoria",
+        labels = {"Purchase Amount (USD)": "Total de Vendas (USD)"},
+        color_discrete_sequence = px.colors.qualitative.Pastel, 
+        text_auto = False)
+
+    grfc_desconto.update_layout(
+        xaxis_title = "Categoria",
+        yaxis_title = "Total de Vendas (USD)",
+        hovermode = "x unified")
+
+    return grfc_desconto
 
 # %%

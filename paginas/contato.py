@@ -84,4 +84,41 @@ def contato():
                 </div>
             """, unsafe_allow_html=True)
 
-    st.divider()
+    footer_css = """
+        <style>
+        .footer-container {
+            position: relative;
+            margin-top: auto;  
+            padding: 20px;
+            background-color: transparent;
+        }
+
+        
+        .footer {
+            text-align: center;
+            color: rgba(128, 128, 128, 0.5);
+            font-size: 0.9em;
+            border-top: 1px solid rgba(128, 128, 128, 0.2);
+            padding-top: 15px;
+        }
+
+        
+        .spacer {
+            height: 50px;
+        }
+        </style>
+        """
+
+        
+    footer_html = """
+        <div class="footer-container">
+            <div class="footer">
+               Desenvolvido por Matheus Morandi © 2024 
+            </div>
+        </div>
+        """
+
+    
+    st.markdown(footer_css, unsafe_allow_html=True)
+
+    st.markdown(footer_html, unsafe_allow_html=True)
